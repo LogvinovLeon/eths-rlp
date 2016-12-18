@@ -1,6 +1,7 @@
 module RLP where
 
 import Data.Word
+import Control.Applicative
 import qualified Data.ByteString as B
 
 data RLPObject = RLPItem [Word8] | RLPList [RLPObject] deriving (Show, Eq, Ord);
