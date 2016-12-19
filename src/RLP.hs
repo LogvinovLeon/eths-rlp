@@ -23,7 +23,7 @@ int2Bytes::Integral a => a -> B.ByteString
 int2Bytes = B.pack.int2BE
 
 be2Int::Integral a => [Word8] -> a
-be2Int bs = foldl (\v a -> v * 0xff + fromIntegral a) 0 bs
+be2Int = foldl (\v a -> v * 0xff + fromIntegral a) 0
 
 bytes2Int::B.ByteString -> Int
 bytes2Int = be2Int.B.unpack
@@ -31,27 +31,27 @@ bytes2Int = be2Int.B.unpack
 rlp2Bytes::RLPObject -> Put
 rlp2Bytes (RLPItem bs) | B.length bs == 1 && B.head bs <= 0x7f = putByteString bs
 rlp2Bytes (RLPItem bs) | B.length bs <= 55 = do
-  putWord8 $ 0x80 + (fromIntegral $ B.length bs)
+  putWord8 $ 0x80 + fromIntegral (B.length bs)
   putByteString bs
 rlp2Bytes (RLPItem bs) = do
-  putWord8 $ 0xb7 + (fromIntegral $ B.length $ lenb)
+  putWord8 $ 0xb7 + fromIntegral (B.length lenb)
   putByteString lenb
   putByteString bs
   where
     lenb = int2Bytes $ B.length bs
 rlp2Bytes (RLPList os) | len <= 55 = do
-  putWord8 $ 0xc0 + (fromIntegral $ len)
+  putWord8 $ 0xc0 + fromIntegral len
   putLazyByteString internal
   where
     len = LB.length internal
     internal = LB.concat $ runPut `fmap` rlp2Bytes `fmap` os
 rlp2Bytes (RLPList os) = do
-  putWord8 $ 0xf7 + (fromIntegral $ B.length $ lenb)
+  putWord8 $ 0xf7 + fromIntegral (B.length lenb)
   putByteString lenb
   putLazyByteString internal
   where
     lenb = int2Bytes $ LB.length internal
-    internal = LB.concat $ runPut <$> rlp2Bytes <$> os
+    internal = LB.concat (runPut . rlp2Bytes <$> os)
 
 -- | Serialize RLPObject to ByteString
 --
@@ -94,4 +94,4 @@ bytes2RLP = do
 -- >>> rlpDeserialize $ B.pack [192]
 -- (Right (RLPList []),"")
 rlpDeserialize::B.ByteString -> (Either String RLPObject, B.ByteString)
-rlpDeserialize bs = runGet bytes2RLP bs
+rlpDeserialize = runGet bytes2RLP
