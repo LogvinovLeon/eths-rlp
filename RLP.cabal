@@ -3,8 +3,8 @@
 
 name:                RLP
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis:            Ethereum Recursive Length Prefix Encoding
+description:         RLP encoding/decoding, as described in the Ethereum Yellowpaper
 license:             MIT
 license-file:        LICENSE
 author:              Leonid Logvinov
@@ -20,7 +20,7 @@ library
   -- other-modules:
   -- other-extensions:
   build-depends:
-    base,
+    base >= 4.9.0 && < 4.10,
     bytestring,
     binary,
     binary-strict
@@ -34,7 +34,9 @@ Test-Suite doctest
   HS-Source-Dirs:       tests
   Ghc-Options:          -threaded -Wall
   Main-Is:              doctests.hs
-  Build-Depends:        base, doctest
+  Build-Depends:
+    base >= 4.9.0 && < 4.10,
+    doctest
 
 Source-Repository head
   Type:                 git
