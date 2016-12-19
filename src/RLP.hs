@@ -1,7 +1,7 @@
 module RLP where
 
 import Data.Word
-import Control.Applicative()
+import Control.Applicative
 import Control.Monad
 import Data.Binary.Strict.Get
 import Data.Binary.Put
