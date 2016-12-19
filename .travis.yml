@@ -9,5 +9,5 @@ ghc:
 script:
   - cabal configure --enable-tests --enable-library-coverage && cabal build && cabal test
 after_script:
-  - cabal --ignore-sandbox install hpc-coveralls
-  - hpc-coveralls doctest
+  - cabal sandbox init && cabal install hpc-coveralls
+  - .cabal-sandbox/bin/hpc-coveralls doctest
