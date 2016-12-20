@@ -9,7 +9,7 @@ license:             MIT
 license-file:        LICENSE
 author:              Leonid Logvinov
 maintainer:          logvinov.leon@gmail.com
--- copyright:
+copyright:           2016 Leonid Logvinov
 category:            Data
 build-type:          Simple
 extra-source-files:  ChangeLog.md, README.md
