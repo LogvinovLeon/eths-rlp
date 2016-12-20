@@ -15,6 +15,9 @@ build-type:          Simple
 extra-source-files:  ChangeLog.md, README.md
 cabal-version:       >=1.10
 
+flag documentation
+  default: False
+
 library
   exposed-modules: RLP
   -- other-modules:
@@ -24,6 +27,8 @@ library
     bytestring,
     binary,
     binary-strict
+  if flag(documentation)
+        build-depends: hscolour == 1.20.*
   hs-source-dirs:      src
   ghc-Options:         -Wall
   default-language:    Haskell2010
