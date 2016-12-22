@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
-module RLP (rlpSerialize, rlpDeserialize, RLPSerializable (..)) where
+module RLP (rlpSerialize, rlpDeserialize, RLPSerializable (..), RLPObject (..)) where
 
 import Data.Word
 import Control.Applicative
