@@ -1,4 +1,6 @@
-module RLP where
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
+module RLP (rlpSerialize, rlpDeserialize, RLPSerializable (..)) where
 
 import Data.Word
 import Control.Applicative
@@ -95,3 +97,14 @@ bytes2RLP = do
 -- (Right (RLPList []),"")
 rlpDeserialize::B.ByteString -> (Either String RLPObject, B.ByteString)
 rlpDeserialize = runGet bytes2RLP
+
+class RLPSerializable a where
+  toRLP::a->RLPObject
+  serialize::a->LB.ByteString
+  serialize = rlpSerialize.toRLP
+
+instance RLPSerializable a => RLPSerializable [a] where
+  toRLP os = RLPList $ toRLP `fmap` os
+
+instance RLPSerializable B.ByteString where
+  toRLP = RLPItem
