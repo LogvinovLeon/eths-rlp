@@ -33,3 +33,5 @@ spec = do
       serialize "\x04\x00" `shouldBe` "\x82\x04\x00"
     it "simple tree" $
       serialize [[],[[]],[[],[Empty]]] `shouldBe` "\xc7\xc0\xc1\xc0\xc3\xc0\xc1\xc0"
+    it "lorem ipsum" $
+      serialize "Lorem ipsum dolor sit amet, consectetur adipisicing elit" `shouldBe` "\xb8\x38Lorem ipsum dolor sit amet, consectetur adipisicing elit"
