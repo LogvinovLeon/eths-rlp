@@ -3,8 +3,10 @@
 module RLPSpec (spec) where
 
 import Test.Hspec
+import Test.QuickCheck
 import RLP
 import Data.Char
+import Test.QuickCheck.Instances
 import qualified Data.ByteString.Char8 as C
 import qualified Data.ByteString.Lazy.Char8 as LC
 import qualified Data.ByteString as B
@@ -35,3 +37,6 @@ spec = do
       serialize [[],[[]],[[],[Empty]]] `shouldBe` "\xc7\xc0\xc1\xc0\xc3\xc0\xc1\xc0"
     it "lorem ipsum" $
       serialize "Lorem ipsum dolor sit amet, consectetur adipisicing elit" `shouldBe` "\xb8\x38Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+  describe "Properties" $ do
+    it "Serialize is inverse to deserialize" $
+      property $ (\x -> ((rlpDeserialize $ BL.toStrict $ serialize x) == (Right (toRLP x), "")))
