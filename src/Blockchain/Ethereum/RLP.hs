@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
-module RLP (rlpSerialize, rlpDeserialize, RLPSerializable (..), RLPObject (..)) where
+module Blockchain.Ethereum.RLP (rlpSerialize, rlpDeserialize, RLPSerializable (..), RLPObject (..)) where
 
 import Data.Word
 import Control.Applicative
