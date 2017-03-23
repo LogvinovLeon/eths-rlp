@@ -58,6 +58,7 @@ rlp2Bytes (RLPList os) = do
 -- | Serialize RLPObject to ByteString
 --
 -- Examples:
+--
 -- >>> rlpSerialize $ RLPItem B.empty
 -- "\128"
 -- >>> rlpSerialize $ RLPList []
@@ -91,6 +92,7 @@ bytes2RLP = do
 -- | Deserialize ByteString to RLPObject
 --
 -- Examples:
+--
 -- >>> rlpDeserialize $ B.pack [128]
 -- (Right (RLPItem ""),"")
 -- >>> rlpDeserialize $ B.pack [192]
